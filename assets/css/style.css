@@ -1,0 +1,846 @@
+/* 
+    Franko Fister
+    ISTE240 Sec800 Individual 2
+    13.03.2023.
+*/
+
+/* Importing all the fonts that are used on the site */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Setting box-sizing to border-box so elements, margins, paddings, etc. are calculated properly */
+* {
+    box-sizing: border-box;
+}
+
+/* Setting body padding and margin to 0 */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+/* Giving the navbar a font, displaying it as flex, giving it a background color and a font color */
+.navbar {
+    font-family: 'Bebas Neue';
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d1ae91;
+    color: white;
+    /* text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;  */
+}
+
+/* Setting font size to be bigger than links, a bit of a margin */
+.title {
+    font-size: 3rem;
+    margin: 1.5rem;
+}
+
+/* Setting links position to relative, which is used to ensure the hover effect from not working */
+.links {
+    position: relative;
+}
+
+/* Displaying as flex, setting font size and removing margin and padding */
+.links ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 1.8rem;
+}
+
+/* Setting position to relative so the hover effect can be applied, removing underline from links and giving a transition effect for hover */
+.links li {
+    position: relative;
+    list-style: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Setting up the upper left and lower right corners for the hover effect, they currently have no size */
+.links li:after,
+.links li:before {
+    content: "";
+    position: absolute;
+    display: block;
+    border: 0px solid transparent;
+    width: 0%;
+    height: 0%;
+    transition: all 0.3s ease;
+}
+
+/* This is more of the corners being set up, this is where we make the borders for the upper left corner */
+.links li::after {
+    width: 0%;
+    height: 0%;
+    top: 0;
+    left: 0;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+}
+
+/* This is more of the corners being set up, this is where we make the borders for the lower right corner */
+.links li:before {
+    width: 0%;
+    height: 0%;
+    right: 0;
+    bottom: 0;
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
+}
+
+/* When hovered over a link, expanding the corners so they show */
+.links li:hover::before,
+.links li:hover::after {
+    width: 10px;
+    height: 10px;
+    border-color: white;
+}
+
+/* Giving the right-most link a bigger right margin */
+.links li:last-child {
+    margin-right: 1.5rem;
+}
+
+/* Removing underline from links, setting their color to white and giving them some padding, setting display: block for the hover effect */
+.links li a {
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    display: block;
+}
+
+/* Creating the hamburger bar used for smaller viewports and positioning it correctly */
+.toggle-navbar {
+    position: absolute;
+    top: 2.3rem;
+    right: 1.8rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 3.2rem;
+    height: 2.4rem;
+}
+
+/* Making the span elements have color and have thickness */
+.toggle-navbar .bar {
+    height: 5px;
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+}
+
+/* Setting up the three span elements for an animation when the hamburger bar is clicked */
+.toggle-navbar .bar:nth-child(1) {
+    transform-origin: top left;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-navbar .bar:nth-child(2) {
+    transform-origin: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-navbar .bar:nth-child(3) {
+    transform-origin: bottom left;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Moving the top and bottom elements to the right slightly, and rotating them accordingly to make an X, the middle element is removed */
+.toggle-navbar.active .bar:nth-child(1) {
+    transform: translateX(16px) rotate(45deg);
+}
+
+.toggle-navbar.active .bar:nth-child(2) {
+    transform: scaleX(0);
+}
+
+.toggle-navbar.active .bar:nth-child(3) {
+    transform: translateX(16px) rotate(-45deg);
+}
+
+/* Setting the home page background */
+.content-index {
+    width: 100%;
+    height: calc(100vh - 6.92rem);
+    margin: 0;
+    padding: 0;
+    background: url(../media/tunisia-main.jpg) no-repeat center fixed;
+    background-size: cover;
+} 
+
+/* Making a keyframe animation that was originally used for the main title of the page, now also used in the separate links.
+   This only moves the background infinitely from left to right of any element */
+@keyframes background-pan {
+    from {
+        background-position: 0% center;
+    }
+    to {
+        background-position: -200% center;
+    }
+}
+
+/* Setting up the title of the page, setting font and font size, giving it proper positioning */
+.fancy-title {
+    margin: 0;
+    padding: 8vh 0;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 120px;
+    width: 100%;
+    text-align: center;
+    /* Using the keyframe for the animation, giving it a 3s timer so it slowly pans through the colors selected below */
+    animation: background-pan 3s linear infinite;
+    /* Set the background to be a gradient of these colors, note that the first and last color are the same so there is a 
+    smooth transition when animation ends, there are also 3 white colors so the same amount of time passes when its beige
+    and white */
+    background: linear-gradient(
+        to right,
+        #ffffff,
+        #ffffff,
+        #ddb18e,
+        #f0a96f,
+        #ddb18e,
+        #ffffff
+    );
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+}
+
+/* Setting up the links for grading and references so they are bottom left, have a font and font size, transition so they move
+smoothly when hovered over */
+.extra-link {
+    position: absolute;
+    text-decoration: none;
+    color: white;
+    left: 3%;
+    bottom: 10%;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 2.4rem;
+    transition: left 0.2s ease-in-out;
+    width: 15%;
+}
+
+.extra-link:first-child {
+    bottom: 17%;
+}
+
+/* Second link position */
+.extra-link:last-child {
+    bottom: 3%;
+}
+
+/* When hovered, animation the same as main title is played, also links are moved slightly to the right */
+.extra-link:hover{
+    animation: background-pan 1s linear infinite;
+    background: linear-gradient(
+        to right,
+        #ffffff,
+        #ffffff,
+        #ddb18e,
+        #f0a96f,
+        #ddb18e,
+        #ffffff
+    );
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    left: 4.4%;
+}
+
+/* .content-text {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 34px;
+} */
+
+/* Every content-something is the same, only padding and grid layout changes slightly, so I will list all things here
+   Display set to grid with the amount of rows needed, set all text inside to Roboto, slight grid gap, and color changed
+   to an even lighter beige */
+.content-history {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 0.9fr 1fr 0.6fr 0.9fr 0.9fr 0.9fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 30%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-culture {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 0.6fr 1fr 0.5fr 0.6fr 0.7fr 0.5fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 30%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-nature {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 0.9fr 0.9fr 0.9fr 1fr 0.8fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 26%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-tradition {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 0.9fr 0.9fr 0.8fr 0.9fr 0.9fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 26%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-festivals {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 1fr 0.8fr 0.9fr 1fr 1fr 0.9fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 10%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-towns {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 1fr 0.8fr 0.9fr 0.8fr 0.8fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 10%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-tourism {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 1fr 0.8fr 0.9fr 0.8fr 0.8fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 20%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-coast {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 1fr 0.8fr 0.9fr 0.8fr 0.8fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 16%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+.content-fauna {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 0.8fr 0.8fr 0.7fr 0.8fr 0.8fr 0.6fr 0.8fr;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    padding-bottom: 46%;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+}
+
+/* This content is different from the rest, this one has two columns and is just set up so font is roboto and slightly bigger size */
+.content-references {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr 1fr;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+    font-size: 1.5rem;
+}
+
+/* No grid, just font set to roboto and a padding for the text inside */
+.content-grading {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+    font-size: 1.5rem;
+    padding: 5%;
+}
+
+.content-comments {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(241, 231, 219);
+    font-size: 1.5rem;
+    padding: 5%;
+}
+
+.content-comments .container-div {
+    width: 80%;
+}
+
+/* Giving some style to the reference text */
+.apareference {
+    padding: 0 2rem 0 3rem;
+    text-indent: 2rem;
+}
+
+/* This is the div that holds everything inside a listing on the site, position is relative because title-text-div is absolutely
+   positioned inside, and is originally set to be to the right of the viewport, so it can slide in when user is scrolling */
+.container-div {
+    position: relative;
+    opacity: 0;
+    transform: translateX(140%);
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    /* background-color: aliceblue; Random color used for testing */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* When user activated .slide by scrolling to a certain point, div comes back to where it is supposed to be */
+.container-div.slide {
+    opacity: 1;
+    transform: translateX(0%);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* First div has a slight margin from the top */
+.container-div:first-child {
+    margin-top: 4%;
+}
+
+/* This div holds the title and content text of the listing, sets up basic padding and margins, is absolutely positioned over the image*/
+.title-text-div {
+    display: block;
+    width: 96%;
+    margin: 0 2% 1.48% 2%;
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 3%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    background-color: white;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Basic styling for the title of the listing */
+.title-article {
+    z-index: 1;
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 0 3% 0;
+    text-align: center;
+}
+
+/* Basic styling for the text of the listing */
+.text-article {
+    z-index: 1;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+/* div similar to the container-div, this is just the inner layer, holds title, text and picture inside*/
+.div-content {
+    position: relative;
+    border-radius: 2rem;
+    -webkit-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+    -moz-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+    box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+}
+
+/* Basic styling for the images */
+.img-content {
+    z-index: 0;
+    width: 100%;
+    border-radius: 2rem;
+    margin-bottom: -1%;
+}
+
+/* Login / register styling, actually made to be a comment section due to a lack of time
+   Styling everything, from the "Leave a comment!" big title to the form inputs and their labels,
+   used on index and comments pages*/
+.login {
+    background-color: rgba(209, 174, 145, 0.9);
+    width: 30%;
+    margin: 2% auto;
+    border-radius: 2rem;
+}
+
+#login-title {
+    font-family: "Kaushan Script", cursive;
+    font-size: 40px;
+    margin: 0 auto;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+#login-username-label {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 24px;
+    color: white;
+}
+
+#username {
+    display: block;
+    height: 1.5rem;
+    width: 40%;
+    margin: 0 auto;
+}
+
+#comment-label {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 24px;
+    color: white;
+}
+
+#comment {
+    display: block;
+    height: 1.5rem;
+    width: 40%;
+    margin: 0 auto;
+}
+
+#submit-button {
+    display: inline-block;
+	background: #0097ee;
+	color: white;
+	border-style: outset;
+	border-color: #0a8cd8;
+    border-radius: 12px;
+	height: 50px;
+	width: 125px;
+	font-family: 'Bebas Neue';
+    font-size: 24px;
+	text-shadow: none;
+    margin: 1rem 6%;
+}
+
+/* These are the same as the ones above, only changing the color of the text to black to improve readability */
+
+#login-title2 {
+    font-family: "Kaushan Script", cursive;
+    font-size: 40px;
+    margin: 0 auto;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    color: black;
+}
+
+#login-username-label2 {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 24px;
+    color: black;
+}
+
+#comment-label2 {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 24px;
+    color: black;
+}
+
+/* Unused button styling, left it in, you never know :P */
+
+#register-button {
+    display: inline-block;
+	background: #0097ee;
+	color: white;
+	border-style: outset;
+	border-color: #0a8cd8;
+    border-radius: 12px;
+	height: 50px;
+	width: 125px;
+	font-family: 'Bebas Neue';
+    font-size: 24px;
+	text-shadow: none;
+    margin: 1rem 6%;
+}
+
+#buttons {
+    text-align: center;
+}
+
+/* Smaller viewport view */
+@media screen  and (max-width: 1250px) {
+    
+    /* Displaying the hamburger bar */
+    .toggle-navbar {
+        display: flex;
+        top: 2.3rem;
+        right: 2rem;
+        width: 4rem;
+        height: 3rem;
+    }
+    
+    /* Making the links get displayed in a list fashion */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Enlarging title text */
+    .title {
+        font-size: 4rem;
+        margin: 1.5rem;
+    }
+    
+    /* Making the links invisible, until clicked on hamburger bar */
+    .links {
+        display: none;
+        opacity: 0;
+        width: 100%;
+        transition: opacity 0.3s ease-in-out, display 0s linear 0.3s;
+    }
+    
+    /* Making links span the whole screen so they are easier to be clicked */
+    .links ul {
+        width: 100%;
+        flex-direction: column;
+        font-size: 4rem;
+    }
+    
+    .links li {
+        text-align: center;
+    }
+    
+    /* Setting nice background color when hovered over link, removing the corner animations from before */
+    .links li:hover {
+        background-color: #f0a96f;
+        transition: all 0.2s ease-in-out;
+        border-color: transparent;
+    }
+    /* Removing corner animations for larger viewport */
+    .links li:hover::before,
+    .links li:hover::after {
+        width: 0px;
+        height: 0px;
+        border-color: transparent;
+    }
+    
+    /* Making first link in list a bit closer to navbar */
+    .links li:first-child {
+        margin-top: -0.5rem;
+    }
+    
+    /* Making last link border a bit thicker */
+    .links li:last-child {
+        margin: 0;
+        padding-bottom: 0.2rem;
+    }
+    
+    /* Setting some padding for links */
+    .links li a {
+        padding: 0.7rem 1rem;
+    }
+    
+    /* When hamburger is pressed, show the navbar list, unfortunately couldn't get it to animate properly */
+    .links.active {
+        display: flex;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out, display 0s linear 0s;
+    }
+
+    /* Just some paddings for all contents in smaller viewport */
+    .content-history {
+        padding-bottom: 70%;
+    }
+
+    .content-culture {
+        padding-bottom: 80%;
+    }
+
+    .content-nature {
+        padding-bottom: 60%;
+    }
+
+    .content-tradition {
+        padding-bottom: 60%;
+    }
+
+    .content-festivals {
+        padding-bottom: 70%;
+    }
+
+    .content-towns {
+        padding-bottom: 60%;
+    }
+
+    .content-tourism {
+        padding-bottom: 60%;
+    }
+
+    .content-coast {
+        padding-bottom:  60%;
+    }
+
+    .content-fauna {
+        padding-bottom:  110%;
+    }
+
+    /* Making the divs bigger so they can be read easier on smaller viewports */
+    .container-div {
+        width: 90%;
+    }
+
+    /* Removing shadow from the main container because the divs are no longer positioned on top of each other */
+    .div-content {
+        -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+        -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+        box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    }
+
+    /* Setting shadows here */
+    .img-content {
+        -webkit-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+        -moz-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+        box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+    }
+
+    /* And here, also removing the title-text-div from top of the image, placing it after the image */
+    .title-text-div {
+        position: relative;
+        margin-top: 3%;
+        -webkit-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+        -moz-box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+        box-shadow: 21px 95px 147px -40px rgba(0,0,0,0.6);
+    }
+}
+
+/* For even smaller viewports */
+@media screen and (max-width: 1000px) {
+
+    /* Make title a bit bigger */
+    .fancy-title {
+        font-size: 10rem;
+    }
+
+    /* Set links just a bit different */
+    .extra-link {
+        font-size: 4rem;
+        left: 7%;
+        width: 40%;
+    }
+
+    .extra-link:hover {
+        left: 10%;
+    }
+
+    .login {
+        margin: 2% auto 2% 44%;
+        width: 50%;
+    }
+
+    #login-title {
+        font-size: 44px;
+    }
+
+    #login-username-label {
+        display: block;
+        width: 30%;
+        margin: 0 auto;
+        text-align: center;
+        font-family: 'Bebas Neue';
+        font-size: 24px;
+        color: white;
+    }
+    
+    #username {
+        display: block;
+        height: 1.5rem;
+        width: 40%;
+        margin: 0 auto;
+    }
+    
+    #login-password-label {
+        display: block;
+        width: 30%;
+        margin: 0 auto;
+        text-align: center;
+        font-family: 'Bebas Neue';
+        font-size: 24px;
+        color: white;
+    }
+    
+    #password {
+        display: block;
+        height: 1.5rem;
+        width: 40%;
+        margin: 0 auto;
+    }
+}
